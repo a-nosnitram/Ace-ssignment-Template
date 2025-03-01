@@ -4,41 +4,75 @@ from string import Template
 # from colorama import Fore, Back, Style
 from datetime import datetime
 
-# report template 
-# to be modified 
-REPORT_TEMPLATE = Template("""# ${module_code} W${week_number} Assignment {report_type}
-# {title}
-## Tutor: ${tutor_name}
-## Strudent: ${matriculation}
+# report template
+# to be modified
+REPORT_TEMPLATE = Template("""<div align="center">
+
+# ${module_code} W${week_number} Assignment ${report_type}
+## ${title}
+### Tutor: ${tutor_name}
+### Student: ${matriculation}
 ### Date: ${date}
+</div>
 
-## Introduction 
+---
 
-## Design 
+## **Introduction**
+Provide a brief overview of the topic, objectives, and scope of the assignment.
 
-## Testing 
+---
 
-## Conclusion """)
+## **Design**
+Explain your approach, methodology, and design decisions.
+
+---
+
+## **Testing**
+
+### **Implementation Details**
+Describe the development and coding process.
+
+### **Testing Strategies**
+Explain how you tested your program.
+
+### **Test Results**
+| **Test Description**   | **Expected Result**   | **Actual Result**   |
+|------------------------|----------------------|----------------------|
+| Test 1:                |                      |                      |
+| Test 2:                |                      |                      |
+| Test 3:                |                      |                      |
+
+
+---
+
+## **Conclusion**
+Summarise key points, pretend you genuinely enjoyed the process of creating this, and talk about potential imporvements you'll never implemnent.
+
+---
+
+### **References** *(if needed)*
+Include citations in academic format.
+""")
 
 def create_project():
     # get user input using input()
     project_type = input_loop("project type (Group (g) / Individual (i))", {"g", "i"})
     week_number = input("Enter week number : ")
-    project_title = input("Enter project title : ")
-    language = input_loop("porgramming language", {"java", "python", "c", 
-                                                   "c++", "haskell", "c#", 
+    title = input("Enter project title : ")
+    language = input_loop("porgramming language", {"java", "python", "c",
+                                                   "c++", "haskell", "c#",
                                                    "javascript"})
 
-    # report details input 
+    # report details input
     module_code = input("Enter module code : ")
     tutor_name = input("Enter tutor name : ")
     matriculation = input("enter matriculation number : ")
 
-    # folder name and base path based on input and folder name 
-    folder_name = f"W{week_number}-Assignment-{project_title}"
-    base_path = Path(folder_name) 
-    
-    # create folder structure 
+    # folder name and base path based on input and folder name
+    folder_name = f"W{week_number}-Assignment-{title}"
+    base_path = Path(folder_name)
+
+    # create folder structure
     if project_type == "i": # individual report setup
         src_path = base_path / "src"
         report_file = base_path / f"W{week_number}-Report.md"
@@ -46,7 +80,7 @@ def create_project():
         report_type = ""
     else: # group project setup
         src_path = base_path / "Code" / "src"
-        report_path = base_path / "Reports" 
+        report_path = base_path / "Reports"
         report_path.mkdir(parents=True, exist_ok=True)
         report_type_g = "Group Report"
 
@@ -54,8 +88,8 @@ def create_project():
         individual_report_file = report_path / "Individual-Report.md"
         report_type_i = "Individual Report"
 
-    # programming language specifics 
-    match language: 
+    # programming language specifics
+    match language:
         case "java":
             main_file = src_path / "Main.java"
             main_file_content = """
@@ -68,37 +102,36 @@ public class Main {
 # this is a scrip to run your java project
 # add files to the compile and run sections as needed
 
-# compile your files 
-javac main.java 
+# compile your files
+javac main.java
 
 # run your files
 java main"""
             script_file = src_path / "runJava.sh"
-        case "c": 
+        case "c":
             main_file = src_path / "Main.c"
             main_file_content = """
-#include <stdio.h> 
+#include <stdio.h>
 
 int main(int argc, char **argv) {
     printf("Good luck with your coursework ;)\n");
-    return 0; 
+    return 0;
 }"""
             script_content = """CC = GCC
 TARGET = main
 FLAGS = -Wall -Wextra
 OBJS = main.o
 
-$(TARGET): $(OBJS) 
+$(TARGET): $(OBJS)
     $(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-main.o: main.c 
+main.o: main.c
     $(CC) $(CFLAGS) -c main.c
 
-clean: 
+clean:
     rm *.o $(TARGET)"""
 
             script_file = src_path / "Makefile"
-            script_file.write_text(script_content)
         case "haskell":
             main_file = src_path / "Main.hs"
             main_file_content = """
@@ -112,31 +145,31 @@ main = putStrLn "Good luck with your coursework ;)"
 # this is a scrip to run your java project
 # add files to the compile and run sections as needed
 
-# compile yout files 
-ghc -o main Main.hs 
+# compile yout files
+ghc -o main Main.hs
 
 # run your files
 ./main
             """
         #case "javscript":
 
-    # create directories using Path.mkdir 
+    # create directories using Path.mkdir
     src_path.mkdir(parents=True, exist_ok=True)
-   
-   # configure project files 
+
+   # configure project files
     main_file.write_text(main_file_content)
     script_file.write_text(script_content)
 
     # define report content using substitute
     if project_type == "i":
-        report_contents = REPORT_TEMPLATE.substitute(module_code=module_code,week_number=week_number, report_type=report_type, tutor_name=tutor_name, matriculation=matriculation, date={datetime.today().strftime('%d %m %Y')})
-        # write report files 
+        report_contents = REPORT_TEMPLATE.substitute(module_code=module_code,week_number=week_number, report_type=report_type, tutor_name=tutor_name, title=title, matriculation=matriculation, date={datetime.today().strftime('%d %m %Y')})
+        # write report files
         report_file.write_text(report_contents)
     else:
-        report_g_contents = REPORT_TEMPLATE.substitute(module_code=module_code,week_number=week_number,report_type=report_type_g, tutor_name=tutor_name, matriculation=matriculation, date={datetime.today().strftime('%d %m %Y')})
+        report_g_contents = REPORT_TEMPLATE.substitute(module_code=module_code,week_number=week_number,report_type=report_type_g, tutor_name=tutor_name, title=title, matriculation=matriculation, date={datetime.today().strftime('%d %m %Y')})
         group_report_file.write_text(report_g_contents)
 
-        report_i_contents = REPORT_TEMPLATE.substitute(module_code=module_code,week_number=week_number, report_type=report_type_i,tutor_name=tutor_name, matriculation=matriculation, date={datetime.today().strftime('%d %m %Y')})
+        report_i_contents = REPORT_TEMPLATE.substitute(module_code=module_code,week_number=week_number, report_type=report_type_i,tutor_name=tutor_name, title=title, matriculation=matriculation, date={datetime.today().strftime('%d %m %Y')})
         individual_report_file.write_text(report_i_contents)
 
     print("All done :з project created !")
@@ -151,4 +184,3 @@ def input_loop(prompt, target_set):
 
 if __name__ == "__main__":
     create_project()
-
