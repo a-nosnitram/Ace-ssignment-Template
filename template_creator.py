@@ -59,9 +59,12 @@ def create_project():
     project_type = input_loop("project type (Group (g) / Individual (i))", {"g", "i"})
     week_number = input("Enter week number : ")
     title = input("Enter project title : ")
+    print("This template creator provides basic project setups for the following languages :")
+    print("Java, Pyhton, C, C++, Haskell, and JavaScript")
+    print("Feel free to skip that part of the setup by pressing ENTER.")
     language = input_loop("porgramming language", {"java", "python", "c",
-                                                   "c++", "haskell", "c#",
-                                                   "javascript"})
+                                                   "c++", "haskell",
+                                                   "javascript", "other"})
 
     # report details input
     module_code = input("Enter module code : ")
@@ -92,8 +95,7 @@ def create_project():
     match language:
         case "java":
             main_file = src_path / "Main.java"
-            main_file_content = """
-public class Main {
+            main_file_content = """public class Main {
     public static void main(String args[]) {
         System.out.println("Good luck with your coursework ;)");
     }
@@ -110,8 +112,7 @@ java main"""
             script_file = src_path / "runJava.sh"
         case "c":
             main_file = src_path / "Main.c"
-            main_file_content = """
-#include <stdio.h>
+            main_file_content = """#include <stdio.h>
 
 int main(int argc, char **argv) {
     printf("Good luck with your coursework ;)\n");
@@ -129,20 +130,18 @@ main.o: main.c
     $(CC) $(CFLAGS) -c main.c
 
 clean:
-    rm *.o $(TARGET)"""
+    rm -f *.o $(TARGET)"""
 
             script_file = src_path / "Makefile"
         case "haskell":
             main_file = src_path / "Main.hs"
-            main_file_content = """
-main :: IO ()
+            main_file_content = """main :: IO ()
 main = putStrLn "Good luck with your coursework ;)"
             """
             script_file = src_path / "runHaskell.sh"
-            script_content = """
-#!/bin/bash
+            script_content = """#!/bin/bash
 
-# this is a scrip to run your java project
+# this is a scrip to run your Haskell project
 # add files to the compile and run sections as needed
 
 # compile yout files
@@ -151,14 +150,61 @@ ghc -o main Main.hs
 # run your files
 ./main
             """
-        #case "javscript":
+        case "javscript":
+            main_file = src_path / "main.js"
+            main_file_content = """console.log("Good luck with your coursework ;)");"""
+            script_file = src_path / "runJS.sh"
+            script_content = """#!/bin/bash
+# this is a scrip to run your JavaScript project
+# add files as needed
+
+# run your files
+node main.js
+"""
+        case "python": 
+            main_file = src_path / "main.py" 
+            main_file_content = """if __name__ == "__main__": 
+    print("Good luck with your coursework ;)")"""
+            script_file = src_path / "run_python.sh"
+            script_content = """#!/bin/bash
+# this is a scrip to run your JavaScript project
+# add files as needed
+
+# run your files
+python3 main.py
+"""
+        case "c++": 
+            main_file = src_path / "main.cpp"
+            main_file_content = """#include <iosteram>
+int main() {
+    std::cout << "Good luck with your coursework ;)" << std::endl;
+    return 0; 
+}
+"""
+            script_file = src_path / "Makefile"
+            script_content - """CXX=g++
+TARGET=main
+CXXFLAGS = -Wall -Wextra
+OBJS = main.o
+
+$(TARGET): $(OBJS)
+    $(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+
+main.o: main.cpp
+    $(CXX) $(CXXFLAGS) -c main.cpp
+
+clean:
+    rm -f *.o $(TARGET) 
+
+"""
 
     # create directories using Path.mkdir
     src_path.mkdir(parents=True, exist_ok=True)
 
-   # configure project files
-    main_file.write_text(main_file_content)
-    script_file.write_text(script_content)
+    # configure project files
+    if language != "other":
+        main_file.write_text(main_file_content)
+        script_file.write_text(script_content)
 
     # define report content using substitute
     if project_type == "i":
