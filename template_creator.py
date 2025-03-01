@@ -57,46 +57,67 @@ def create_project():
     # programming language specifics 
     match language: 
         case "java":
-            main_file = src_path / "main.java"
-            main_file_content = """public class main() {
-            public static void main(String args[]) {
-                System.out.println("Good luck with your coursework ;)");
-            }
+            main_file = src_path / "Main.java"
+            main_file_content = """
+public class Main {
+    public static void main(String args[]) {
+        System.out.println("Good luck with your coursework ;)");
+    }
 }"""
             script_content = """#!/bin/bash
-// this is a scrip to run your java project
-// add files to the compile and run sections as needed
+# this is a scrip to run your java project
+# add files to the compile and run sections as needed
 
-// compile your files 
+# compile your files 
 javac main.java 
 
-// run your files
+# run your files
 java main"""
             script_file = src_path / "runJava.sh"
         case "c": 
-            main_file = src_path / "main.c"
-            main_file_content = """ #include <stdio.h> 
+            main_file = src_path / "Main.c"
+            main_file_content = """
+#include <stdio.h> 
 
-                                    int main(int argc, char **argv) {
-                                        putStrLn("Good luck with your coursework ;)\n");
-                                        return 0; 
-                                    }"""
+int main(int argc, char **argv) {
+    printf("Good luck with your coursework ;)\n");
+    return 0; 
+}"""
             script_content = """CC = GCC
-                                 TARGET = main
-                                 CFLAGS = -Wall -Wextra
-                                 OBJS = main.o
+TARGET = main
+FLAGS = -Wall -Wextra
+OBJS = main.o
 
-                                 $(TARGET): $(OBJS) 
-                                    $(CC) $(CFALGS) -o $(TARGET) $(OBJS)
+$(TARGET): $(OBJS) 
+    $(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-                                 main.o: main.c 
-                                    $(CC) $(CFLAGS) -c main.c
+main.o: main.c 
+    $(CC) $(CFLAGS) -c main.c
 
-                                 clean: 
-                                    rm *.o $(TARGET)
-                                 """
+clean: 
+    rm *.o $(TARGET)"""
+
             script_file = src_path / "Makefile"
-        #case "haskell":
+            script_file.write_text(script_content)
+        case "haskell":
+            main_file = src_path / "Main.hs"
+            main_file_content = """
+main :: IO ()
+main = putStrLn "Good luck with your coursework ;)"
+            """
+            script_file = src_path / "runHaskell.sh"
+            script_content = """
+#!/bin/bash
+
+# this is a scrip to run your java project
+# add files to the compile and run sections as needed
+
+# compile yout files 
+ghc -o main Main.hs 
+
+# run your files
+./main
+            """
         #case "javscript":
 
     # create directories using Path.mkdir 
