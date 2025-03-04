@@ -18,14 +18,14 @@ The user can aslo choose to not select any of the above, in whichcase no languag
 
 When filling in your project details, you can select to either build a group or individual project. 
 ### Individual Project Setup
-```
+```bash
 |---- src
 |      \_____ main.xx # main, language-specific file
 |      \_____ runXX.sh # script or Makefile to run your files
 |---- W0X-Report.md
 ```
 ### Group Project Setup
-```
+```bash
 |---- Code
 |      \_____ src
 |              \_____ main.xx # main, language-specific file
