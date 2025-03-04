@@ -22,8 +22,8 @@ When filling in your project details, you can select to either build a group or 
 |---- src
 |      \_____ main.xx # main, language-specific file
 |      \_____ runXX.sh # script or Makefile to run your files
-|      \_____ run_tests.py # optional testing file (see [Testing Options](# Testing Options)) 
-|      \_____ Custom-Tests # optional testing folder (see [Testing Options](# Testing Options)) 
+|      \_____ run_tests.py # optional testing file (see Testing Options)
+|      \_____ Custom-Tests # optional testing folder (see Testing Options)
 |               \_____ test1.in # sample test files 
 |               \_____ test1.out
 |               \_____ test2.in
@@ -36,8 +36,8 @@ When filling in your project details, you can select to either build a group or 
 |      \_____ src
 |              \_____ main.xx # main, language-specific file
 |              \_____ runXX.sh # script or Makefile to run your files
-|              \_____ run_tests.py # optional testing file (see [Testing Options](# Testing Options))
-|              \_____ Custom-Tests # optional testing folder (see [Testing Options](# Testing Options))
+|              \_____ run_tests.py # optional testing file (see Testing Options)
+|              \_____ Custom-Tests # optional testing folder (see Testing Options)
 |                       \_____ test1.in # sample test files 
 |                       \_____ test1.out
 |                       \_____ test2.in
@@ -87,7 +87,7 @@ source venv/bin/activate  # Mac/Linux
 venv\Scripts\activate      # Windows
 pip install python-docx
 ```
-Then redo the [Installation](# Installation) part.  
+Then redo the [Installation](#installation) part.  
 
 # Credits
-Special thanks to **[Andrew](https://github.com/ThatOtherAndrew)** for the idea behind the automatic test table generation, and to **[Yehor](https://github.com/YehorBoiar)** and **[Fedor](https://github.com/DrPepper1337)** for suffering through part of the testing process with me.  
+Special thanks to **[Andrew](https://github.com/ThatOtherAndrew)** for the idea behind the automatic test table generation and to **[Yehor](https://github.com/YehorBoiar)** and **[Fedor](https://github.com/DrPepper1337)** for suffering through part of the testing process with me.  
