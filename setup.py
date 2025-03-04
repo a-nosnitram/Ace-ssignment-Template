@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="assignment_template_creator",
-    version="1.0.4",
+    version="1.0.5",
     packages=find_packages(),
     py_modules=["template_creator"],
     install_requires=[

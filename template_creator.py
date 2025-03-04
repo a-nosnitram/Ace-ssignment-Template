@@ -69,7 +69,7 @@ COMPILATIONS = {
     "c++": "make",
     "java": "chmod +x runJava.sh",
     "haskell": "chmod +x runHaskell.sh",
-    "python": "chmod +x run_python",
+    "python": "chmod +x run_python.sh",
     "javascript": "chmod +x runJS.sh"
 }
 
@@ -162,7 +162,7 @@ COMPILATIONS = {
     "c++": "make",
     "java": "chmod +x runJava.sh",
     "haskell": "chmod +x runHaskell.sh",
-    "python": "chmod +x run_python",
+    "python": "chmod +x run_python.sh",
     "javascript": "chmod +x runJS.sh"
 }
 

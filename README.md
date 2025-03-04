@@ -22,8 +22,8 @@ When filling in your project details, you can select to either build a group or 
 |---- src
 |      \_____ main.xx # main, language-specific file
 |      \_____ runXX.sh # script or Makefile to run your files
-|      \_____ run_tests.py # optional testing file (see 'Testing Options')
-|      \_____ Custom-Tests # optional testing folder (see 'Testing Options')
+|      \_____ run_tests.py # optional testing file (see [Testing Options](# Testing Options)) 
+|      \_____ Custom-Tests # optional testing folder (see [Testing Options](# Testing Options)) 
 |               \_____ test1.in # sample test files 
 |               \_____ test1.out
 |               \_____ test2.in
@@ -36,8 +36,8 @@ When filling in your project details, you can select to either build a group or 
 |      \_____ src
 |              \_____ main.xx # main, language-specific file
 |              \_____ runXX.sh # script or Makefile to run your files
-|              \_____ run_tests.py # optional testing file (see 'Testing Options')
-|              \_____ Custom-Tests # optional testing folder (see 'Testing Options')
+|              \_____ run_tests.py # optional testing file (see [Testing Options](# Testing Options))
+|              \_____ Custom-Tests # optional testing folder (see [Testing Options](# Testing Options))
 |                       \_____ test1.in # sample test files 
 |                       \_____ test1.out
 |                       \_____ test2.in
@@ -67,4 +67,27 @@ Then, to run it
 ```
 create_template
 ```
-And you're all set ! I hope someone actually uses this. 
+And you're all set ! I hope someone actually uses this.
+
+## Troubleshooting 
+The above works seamlessly on Alma Linux (the lab machines), either directly, or via SSH. However, some issues may arise when trying to run `python3 run_tests.py` (in case you have selected one of the testing options). You might get the following error : 
+```bash
+File "path/to/your/assignment/src/run_tests.py", line 5, in <module>
+    from docx import Document
+ModuleNotFoundError: No module named 'docx'
+```
+Try installing the `python-docx` package explicitly :
+```bash
+pip install python-docx
+```
+If you're still getting the error, it's likely caused by a mismatch between python versions. In that case, try installing the package in a virtual environment : 
+```bash
+python3 -m venv venv 
+source venv/bin/activate  # Mac/Linux
+venv\Scripts\activate      # Windows
+pip install python-docx
+```
+Then redo the [Installation](# Installation) part.  
+
+# Credits
+Special thanks to **[Andrew](https://github.com/ThatOtherAndrew)** for the idea behind the automatic test table generation, and to **[Yehor](https://github.com/YehorBoiar)** and **[Fedor](https://github.com/DrPepper1337)** for suffering through part of the testing process with me.  
