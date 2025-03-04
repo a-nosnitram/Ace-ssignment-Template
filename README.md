@@ -61,7 +61,7 @@ The user can also skip this stet, in which case no `Custom-Tests` directory and 
 # Installation 
 This package is available on PyPI. Just run
 ```
-pip install assignment-template-creator==1.0.4
+pip install assignment-template-creator==1.0.5
 ```
 Then, to run it
 ```
