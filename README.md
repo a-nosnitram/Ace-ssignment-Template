@@ -43,7 +43,7 @@ This package is available on PyPI. Just run
 ```
 pip install assignment-template-creator==1.0.3
 ```
-The, to run it
+Then, to run it
 ```
 create_template
 ```
